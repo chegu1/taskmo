@@ -9,7 +9,7 @@ import { Row, Col } from "react-bootstrap";
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const jobList = useSelector((state) => state.jobList);
-  console.log(jobList, "liss");
+
   const { loading, error, jobs: alljobs } = jobList;
   useEffect(() => {
     dispatch(listJobs());

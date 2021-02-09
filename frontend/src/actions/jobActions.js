@@ -1,5 +1,8 @@
 import {
-    JOB_LIST_REQUEST, JOB_LIST_SUCCESS, JOB_LIST_FAIL
+    JOB_LIST_REQUEST, JOB_LIST_SUCCESS, JOB_LIST_FAIL,
+    JOB_CREATE_REQUEST,
+    JOB_CREATE_SUCCESS,
+    JOB_CREATE_FAIL
 } from '../constants/jobConstants';
 
 import axios from 'axios'
@@ -16,6 +19,32 @@ export const listJobs = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: JOB_LIST_FAIL,
+            payload: error.response && error.response.data.message ?
+                error.response.data.message :
+                error.message
+        })
+    }
+}
+
+export const createJob = (jobtitle, description, location, expires) => async (dispatch) => {
+    try {
+        dispatch({ type: JOB_CREATE_REQUEST })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.post('http://localhost:5000/api/jobcreate', { jobtitle, description, location, expires }, config)
+
+        dispatch({
+            type: JOB_CREATE_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: JOB_CREATE_FAIL,
             payload: error.response && error.response.data.message ?
                 error.response.data.message :
                 error.message
