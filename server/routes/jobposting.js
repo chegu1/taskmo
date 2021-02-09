@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { jobposting } = require('../controllers/jobPosting')
+const { jobposting, listjobs } = require('../controllers/jobPosting')
 
-router.post('/jobs', jobposting)
+router.post('/jobcreate', jobposting);
+router.get('/alljobs', listjobs)
 
 module.exports = router;
