@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
@@ -10,15 +10,36 @@ const RegisterScrren = () => {
   const [location, setLocation] = useState("");
   const [expires, setExpires] = useState("");
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      getUserAddressBy(position.coords.latitude, position.coords.longitude);
+    });
+  }, []);
+
+  const getUserAddressBy = (lat, long) => {
+    console.log(lat, long);
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyBYseoHPQjdpX4O669e3PcvTOZCVC_2Rr4`
+    )
+      .then((resp) => resp.json())
+      .then((data) =>
+        data.results[0].address_components.map((city) => {
+          if (city.types[0] === "administrative_area_level_1") {
+            console.log(city);
+            setLocation(city.long_name);
+          }
+        })
+      );
+  };
+
   const dispatch = useDispatch();
 
   const createJobs = useSelector((state) => state.jobCreate);
 
-  const { loading, userInfo, error } = createJobs;
+  const { loading, jobStatus, error } = createJobs;
 
   const submitHandler = (e) => {
     e.preventDefault();
-
     dispatch(createJob(jobtitle, description, location, expires));
   };
   return (

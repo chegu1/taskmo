@@ -14,9 +14,8 @@ const jobPosting = new mongoose.Schema({
         required: true
     },
     expirydate: {
-        type: Date,
-        // required: true,
-        default: Date.now
+        type: String,
+        // required: true
     }
 }, { timestamps: true })
 
