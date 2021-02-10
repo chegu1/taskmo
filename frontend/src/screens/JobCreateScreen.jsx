@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import { createJob } from "../actions/jobActions";
 
-const RegisterScrren = () => {
+const JobCreateScreen = () => {
   const [jobtitle, setJobName] = useState("");
   const [description, setJobDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -95,4 +95,4 @@ const RegisterScrren = () => {
   );
 };
 
-export default RegisterScrren;
+export default JobCreateScreen;
