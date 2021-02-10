@@ -19,7 +19,7 @@ const JobCreateScreen = () => {
   const getUserAddressBy = (lat, long) => {
     console.log(lat, long);
     fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyBYseoHPQjdpX4O669e3PcvTOZCVC_2Rr4`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=use google api key(cant share mine)`
     )
       .then((resp) => resp.json())
       .then((data) =>
