@@ -1,5 +1,6 @@
 import {
-    USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL
+    USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL,
+    USER_ACTIVATE_REQUEST, USER_ACTIVATE_SUCCESS, USER_ACTIVATE_FAIL
 } from '../constants/authConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -14,6 +15,26 @@ export const userLoginReducer = (state = {}, action) => {
                 userInfo: action.payload
             }
         case USER_LOGIN_FAIL:
+            return {
+                loading: false, error: action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export const userActivateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_ACTIVATE_REQUEST:
+            return {
+                loading: true,
+            }
+        case USER_ACTIVATE_SUCCESS:
+            return {
+                loading: false,
+                userInfo: action.payload
+            }
+        case USER_ACTIVATE_FAIL:
             return {
                 loading: false, error: action.payload
             }

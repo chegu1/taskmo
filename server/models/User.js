@@ -4,8 +4,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    userType: {
-        type: String
+    userTypeJobSeeker: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true })
 

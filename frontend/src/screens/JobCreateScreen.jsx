@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import { createJob } from "../actions/jobActions";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const JobCreateScreen = () => {
   const [jobtitle, setJobName] = useState("");
   const [description, setJobDescription] = useState("");
   const [location, setLocation] = useState("");
-  const [expires, setExpires] = useState("");
-
+  const [expirydate, setExpires] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       getUserAddressBy(position.coords.latitude, position.coords.longitude);
@@ -40,7 +42,7 @@ const JobCreateScreen = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createJob(jobtitle, description, location, expires));
+    dispatch(createJob(jobtitle, description, location, expirydate));
   };
   return (
     <Container>
@@ -75,14 +77,23 @@ const JobCreateScreen = () => {
                 onChange={(e) => setLocation(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Form.Group controlId="expires">
+            {/* <Form.Group controlId="expires">
               <Form.Label>Expires in</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="enter expires in"
-                value={expires}
+                value={expirydate}
                 onChange={(e) => setExpires(e.target.value)}
               ></Form.Control>
+            </Form.Group> */}
+            <Form.Group controlId="expires">
+              <Form.Label>Expires in</Form.Label>
+              <br></br>
+              <DatePicker
+                selected={expirydate}
+                dateFormat="Pp"
+                onChange={(date) => setExpires(date)}
+              />
             </Form.Group>
 
             <Button type="submit" variant="primary">

@@ -26,7 +26,7 @@ export const listJobs = () => async (dispatch) => {
     }
 }
 
-export const createJob = (jobtitle, description, location, expires) => async (dispatch) => {
+export const createJob = (jobtitle, description, location, expirydate) => async (dispatch) => {
     try {
         dispatch({ type: JOB_CREATE_REQUEST })
 
@@ -36,7 +36,7 @@ export const createJob = (jobtitle, description, location, expires) => async (di
             }
         }
 
-        const { data } = await axios.post('http://localhost:5000/api/jobcreate', { jobtitle, description, location, expires }, config)
+        const { data } = await axios.post('http://localhost:5000/api/jobcreate', { jobtitle, description, location, expirydate }, config)
 
         dispatch({
             type: JOB_CREATE_SUCCESS,
