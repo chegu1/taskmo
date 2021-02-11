@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken')
 const sgMail = require('@sendgrid/mail')
 const User = require('../models/User');
-sgMail.setApiKey('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')
+sgMail.setApiKey('api')
 
 
 exports.signup = asyncHandler(async (req, res) => {
